@@ -1,7 +1,6 @@
 package az.edu.ada.wm2.lab4.controller;
 
 import az.edu.ada.wm2.lab4.model.Product;
-import az.edu.ada.wm2.lab4.model.ProductController;
 import az.edu.ada.wm2.lab4.service.ProductService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

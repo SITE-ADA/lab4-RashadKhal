@@ -1,9 +1,7 @@
-package az.edu.ada.wm2.lab4.model;
-
+package az.edu.ada.wm2.lab4.repository;
 import java.util.*;
-
 import org.springframework.stereotype.Repository;
-import az.edu.ada.wm2.lab4.repository.ProductRepository;
+import az.edu.ada.wm2.lab4.model.Product;
 
 @Repository
 public class ProductRepositoryImpl implements ProductRepository {
