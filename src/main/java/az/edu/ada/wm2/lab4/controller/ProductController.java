@@ -1,98 +1,72 @@
 package az.edu.ada.wm2.lab4.controller;
 
-import az.edu.ada.wm2.lab4.model.Product;
-import az.edu.ada.wm2.lab4.service.ProductService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.List;
-import java.util.UUID;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import az.edu.ada.wm2.lab4.service.ProductService;
+import java.util.*;
+import java.time.* ;
+import java.math.*;
+import az.edu.ada.wm2.lab4.model.Product;
 
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
-
     private final ProductService productService;
 
-    // Constructor injection
     public ProductController(ProductService productService) {
         this.productService = productService;
     }
 
-    // POST /api/products -> 201 CREATED
     @PostMapping
-    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
-        try {
-            Product created = productService.createProduct(product);
-            return new ResponseEntity<>(created, HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    ResponseEntity<Product> createProduct(@RequestBody Product product) {
+        return ResponseEntity.status(201).body(productService.createProduct(product));
     }
 
-    // GET /api/products -> 200 OK
     @GetMapping
-    public ResponseEntity<List<Product>> getAllProducts() {
-        try {
-            return ResponseEntity.ok(productService.getAllProducts());
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    ResponseEntity<List<Product>> getAllProducts(){
+        return ResponseEntity.ok(productService.getAllProducts());
     }
 
-    // GET /api/products/{id} -> 200 OK or 404 NOT FOUND
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable UUID id) {
-        try {
-            return ResponseEntity.ok(productService.getProductById(id));
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    ResponseEntity<Product> getProductById(@PathVariable UUID id) {
+        Product product = productService.getProductById(id);
+        if(product == null){
+            return ResponseEntity.notFound().build();
         }
+        return ResponseEntity.ok(product);
     }
 
-    // PUT /api/products/{id} -> 200 OK or 404 NOT FOUND
     @PutMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable UUID id, @RequestBody Product product) {
-        try {
-            return ResponseEntity.ok(productService.updateProduct(id, product));
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    ResponseEntity<Product> updateProduct(@PathVariable UUID id, @RequestBody Product product){
+        if(product == null){
+            return ResponseEntity.notFound().build();
         }
+        return ResponseEntity.ok(productService.updateProduct(id ,product));
     }
 
-    // DELETE /api/products/{id} -> 204 NO_CONTENT (or 404 NOT FOUND if you want)
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable UUID id) {
-        try {
-            productService.deleteProduct(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    ResponseEntity <Void> deleteProduct(@PathVariable UUID id){
+        productService.deleteProduct(id);
+        return ResponseEntity.noContent().build();
     }
 
-    // GET /api/products/filter/expiring?date=YYYY-MM-DD -> 200 OK
     @GetMapping("/filter/expiring")
-    public ResponseEntity<List<Product>> getProductsExpiringBefore(@RequestParam("date") LocalDate date) {
-        try {
-            return ResponseEntity.ok(productService.getProductsExpiringBefore(date));
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    ResponseEntity<List<Product>> getProductsExpiringBefore(@RequestParam("date") LocalDate date){
+        return ResponseEntity.ok(productService.getProductsExpiringBefore(date));
     }
 
-    // GET /api/products/filter/price?min=10&max=100 -> 200 OK
     @GetMapping("/filter/price")
-    public ResponseEntity<List<Product>> getProductsByPriceRange(
-            @RequestParam("min") BigDecimal min,
-            @RequestParam("max") BigDecimal max
-    ) {
-        try {
-            return ResponseEntity.ok(productService.getProductsByPriceRange(min, max));
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    ResponseEntity<List<Product>> getProductsByPriceRange(@PathVariable BigDecimal min, @PathVariable BigDecimal max){
+        return ResponseEntity.ok(productService.getProductsByPriceRange(min , max));
     }
+
 }
+

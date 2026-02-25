@@ -1,10 +1,12 @@
 package az.edu.ada.wm2.lab4.service;
 
-import az.edu.ada.wm2.lab4.model.Product;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
+
+import az.edu.ada.wm2.lab4.model.Product;
 
 public interface ProductService {
     Product createProduct(Product product);

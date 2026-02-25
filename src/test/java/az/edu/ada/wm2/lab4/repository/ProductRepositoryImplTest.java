@@ -1,10 +1,10 @@
 package az.edu.ada.wm2.lab4.repository;
 
-import az.edu.ada.wm2.lab4.model.Product;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
+import az.edu.ada.wm2.lab4.model.Product;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Optional;
