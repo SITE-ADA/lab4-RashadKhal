@@ -1,3 +1,8 @@
+package az.edu.ada.wm2.lab4.model;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.UUID;
 
 public class Product {
     private String productName;
@@ -50,12 +55,5 @@ public class Product {
     public void setExpirationDate(LocalDate expirationDate){
         this.expirationDate = expirationDate;
     }
-
-    public String toString() {
-        return "Product {" + "id=" + id +  ", productName='" + productName + '\''  ", price=" + price + ", expirationDate=" + expirationDate + '}';
-    }
-
-
-
     
 }
