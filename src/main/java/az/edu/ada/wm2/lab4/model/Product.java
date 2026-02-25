@@ -40,7 +40,7 @@ public class Product {
         return price;
     }
 
-    public LocaldDate expirationdDate(){
+    public LocalDate getExpirationDate(){
         return expirationDate;
     }
 
