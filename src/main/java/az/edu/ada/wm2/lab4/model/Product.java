@@ -5,10 +5,11 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 public class Product {
+
+    private UUID id;
     private String productName;
     private BigDecimal price;
     private LocalDate expirationDate;
-    private UUID id;
 
     public Product() {
         this.id = UUID.randomUUID();
@@ -21,6 +22,7 @@ public class Product {
         this.expirationDate = expirationDate;
     }
 
+    // For update operations
     public Product(UUID id, String productName, BigDecimal price, LocalDate expirationDate) {
         this.id = id;
         this.productName = productName;
@@ -40,20 +42,19 @@ public class Product {
         return price;
     }
 
-    public LocalDate getExpirationDate(){
+    public LocalDate getExpirationDate() {
         return expirationDate;
     }
 
-    public void setProductName(String productName){
+    public void setProductName(String productName) {
         this.productName = productName;
     }
 
-    public void setPrice(BigDecimal price){
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
-    public void setExpirationDate(LocalDate expirationDate){
+    public void setExpirationDate(LocalDate expirationDate) {
         this.expirationDate = expirationDate;
     }
-    
 }
