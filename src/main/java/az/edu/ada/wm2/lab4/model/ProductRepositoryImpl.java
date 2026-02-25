@@ -33,7 +33,4 @@ public class ProductRepositoryImpl implements ProductRepository {
     public boolean existsById(UUID id) {
         return storage.containsKey(id);
     }
-
-    
-
 }
